@@ -1,0 +1,8 @@
+Tugas (python)
+Membuat sebuah kotak untuk input gambar 
+
+Informasi yg ditampilkan adalh properti 
+
+Porppertynya adalah resolusinya berapa, color depth/kedalaman warna, 
+
+Cont(resolusi 250x250. Depth 256)

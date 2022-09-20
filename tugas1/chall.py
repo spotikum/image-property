@@ -1,7 +1,7 @@
 #/usr/bin/python2
 import cv2
 
-img = cv2.imread('/home/ikantongkol/Documents/kuliah/visi-komputer/visi-komputer/kucing.jpeg')
+img = cv2.imread('/home/ikantongkol/Documents/kuliah/visi-komputer/visi-komputer/tugas1/kucing.jpeg')
 
 dimension = img.shape
 height = img.shape[0] 

@@ -1,7 +1,7 @@
 import cv2
 
 
-img = cv2.imread('kucing.jpeg', cv2.IMREAD_UNCHANGED)
+img = cv2.imread('image.jpeg', cv2.IMREAD_UNCHANGED)
 
 
 dimensions = img.shape

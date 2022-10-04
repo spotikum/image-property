@@ -1,103 +1,90 @@
-
-import PySimpleGUI as sg
+import tkinter
+from tkinter import *
+from tkinter import filedialog
 import cv2
 
-sg.theme('dark grey 9')
+def openFile():
+    global filepath, image, dimensions, height, width, channels, X, color_depth  
+    filepath = filedialog.askopenfilename(title="Open File",
+                                          filetypes=(("All Files","*.*"),("Text Files","*.txt"),))
+    print(filepath)
+    image = cv2.imread(filepath, cv2.IMREAD_UNCHANGED)
+    dimensions = image.shape
+    height = dimensions[0]
+    width = dimensions[1]
+    channels = dimensions[2]
+    X = "x"
+    color_depth = channels ** 2 #rumus = banyaknya channel dipangkatkan 2
+    
+    print("Image Size = ", width,X,height)
+    print("Image Width = ", width)
+    print("Image Height = ", height)
+    print("Image Channel = ", channels)
+    print("Image Color Depth = ", color_depth)
+    
+    window_name = "Image"
+    resize = cv2.resize(image, (300,300))
+    cv2.imshow(window_name,resize)
 
+    button = tkinter.Button(text="Show Image Property", 
+                            command=showProperty, 
+                            width = '20', 
+                            height = '2', 
+                            bd="2", 
+                            bg="orange",)
+    button.pack(side="bottom")
+    
+def showProperty():
+    img_property = tkinter.Tk()
+    img_property.title("Image Property")
+    img_property.geometry("300x150")
+    img_property.configure(bg="black")
+    
+    size = "Image Size =  ", width,X,height
+    img_width = "Image Width =  ", width
+    img_height = "Image Height = ", height
+    img_channel = "Image Channel = ", channels
+    img_depth = "Image Depth =  ", color_depth
+     
+    size_msg = Label(img_property, text=size, bg='black', fg='orange', font='28')
+    size_msg.pack()
+    width_msg = Label(img_property, text=img_width, bg='black', fg='orange', font='28')
+    width_msg.pack()
+    height_msg = Label(img_property, text=img_height, bg='black', fg='orange', font='28')
+    height_msg.pack()
+    channel_msg = Label(img_property, text=img_channel, bg='black', fg='orange', font='28')
+    channel_msg.pack()
+    depth_msg = Label(img_property, text=img_depth, bg='black', fg='orange', font='28')
+    depth_msg.pack()
+    
+    def exit_window():
+        img_property.destroy()
+        window.destroy()
+    
+    exit_btn = Button(img_property,text="Exit",
+                                   command=exit_window,
+                                   width = '8', 
+                                   height = '1', 
+                                   bd="2", 
+                                   bg="orange",
+                                   
+                )
+    exit_btn.pack(side="bottom")
+    print(type(size_msg))
+        
+window = Tk()
+window.title("Open File")
+window.geometry("300x100")
+window.configure(bg='black')
+button = Button(text="File Browser", 
+                command=openFile, 
+                width = '10', 
+                height = '2', 
+                bd="2", 
+                bg="orange",)
+button.pack(side="top")
 
-window = sg.Window('Window Title')
-
-
-filename = sg.popup_get_file('Enter the file you wish to process')
-
-print(filename)
-
-
-img = cv2.imread(filename, cv2.IMREAD_UNCHANGED)
-
-dimensions = img.shape
-
-
-height = img.shape[0]
-width = img.shape[1]
-channels = img.shape[2]
-
-var4 = channels ** 2 # rumus nya 2/4 = 16
-
-var = str(width)
-var2 = str (height)
-var3 = str("ukuran")
-
-print('Image Dimension    : ',var3,var,"X",var2)
-print('Image Height       : ',height)
-print('Image Width        : ',width)
-print('Number of Channels : ',channels)
-print('color depth        : ',var4)
-
-
-mytex = "Image Dimension",var3,var, "X", var2
-varheit = "Image Height",height
-varwidit = "Image Width",width
-varcanel = "Number of Channels",channels
-var444 = "color depth",var4
-
-
-
-
-#mylist = ['Image Dimension    : ',mytex,
-#'Image Height       : ',height,
-#'Image Width        : ',width,
-#'Number of Channels : ',channels,
-#'color depth        : ',var4
-
-#]
-
-layout = [
-            [sg.Text(mytex)],
-            [sg.Text(varheit)],
-            [sg.Text(varwidit)],
-            [sg.Text(varcanel)],
-            [sg.Text(var444)],
-            [sg.Button('Save'), sg.Button('Exit')]
-         ]
-
-window = sg.Window('To Do List Example', layout)
-
-
-  
-# path 
-path = filename
-  
-# Reading an image in default mode
-image = cv2.imread(path)
-  
-# Window name in which image is displayed
-window_name = 'image'
-  
-# Using cv2.imshow() method 
-# Displaying the image 
-resize = cv2.resize(image, (246, 240))
-cv2.imshow(window_name, resize)
-  
-#waits for user to press any key 
-#(this is necessary to avoid Python kernel form crashing)
-event, values = window.read()
-cv2.waitKey(0) 
-  
-#closing all open windows 
+cv2.waitKey(0)   
 cv2.destroyAllWindows() 
 
-
-
-
-
-
-
-    
-
-#sg.Window('You entered', var3,var, "X", var2)
-
-
-
-
-
+window.mainloop()

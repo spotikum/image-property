@@ -1,11 +1,11 @@
-## how to run?
-
-cli
+setup
 ```
-python cli.py
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 ```
 
-gui
+run
 ```
 python gui.py
 ```
